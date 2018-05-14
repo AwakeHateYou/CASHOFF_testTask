@@ -11,45 +11,50 @@
     <script src="bankDirectory.js"></script>
 </head>
 <body onload="onShow()">
-<form>
+<form id="form">
     <div class="row top-buffer"></div>
 
     <div class="container-fluid">
-        <!--<h2><span class="label label-default">CASHOFF Test Page</span></h2>-->
+        <h2><span class="label label-default">CASHOFF Test Page</span></h2>
         <div class="form-group row">
             <div class="col-sm-12">
-                <input type="text" class="form-control" id="edBankName" placeholder="Bank Name"/>
+                <input type="text" class="form-control" id="edBankName" placeholder="Bank Name" required="required"
+                       autocomplete="off"/>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edBankBIK" placeholder="Bank BIK"/>
+                <input type="text" class="form-control" id="edBankBIK" placeholder="Bank BIK" pattern="[0-9]{9}" maxlength="9" required="required"
+                       autocomplete="off"/>
             </div>
             <div class="col-sm-9">
                 <input type="text" class="form-control" id="edCorrespondentAccount"
-                       placeholder="Correspondent Account"/>
+                       placeholder="Correspondent Account" pattern="[0-9]{20}" maxlength="20" required="required"
+                       title="20 digits" autocomplete="off"/>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-12">
-                <input type="text" class="form-control" id="edAddress" placeholder="Address"/>
+                <input type="text" class="form-control" id="edAddress" placeholder="Address" required="required"
+                       autocomplete="off"/>
             </div>
         </div>
-        <button type="button" class="btn btn-primary float-right" onclick="saveUtils.saveBankInfo()">Add</button>
+        <button type="submit" class="btn btn-primary float-right" onclick="saveUtils.saveBankInfo()">Add</button>
     </div>
 
     <div class="container-fluid bankList" id="bankList">
         <div class="row">
-            <div class="card" style="width: 18rem;" id="crdBank">
+            <div class="card" style="width: 40%;" id="crdBank0">
                 <div class="card-body">
                     <h5 class="card-title" id="crdBankName"></h5>
+                    <p class="card-text" id="crdBIK"></p>
+                    <p class="card-text" id="crdCorrAccount"></p>
+                    <p class="card-text" id="crdAddress"></p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" id="crdBIK"></li>
-                    <li class="list-group-item" id="crdCorrAccount"></li>
-                    <li class="list-group-item" id="crdAddress"></li>
-                </ul>
-                <button href="#" class="btn btn-primary" onclick="saveUtils.deleteBank(this)">Delete</button>
+                <div class="btn-group float-right horizontal-panel" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary">Edit</button>
+                    <button type="button" class="btn btn-secondary" onclick="saveUtils.deleteBank(this)">Delete</button>
+                </div>
             </div>
         </div>
     </div>

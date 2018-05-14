@@ -6,9 +6,15 @@
     margin-left: 40px;
     margin-right: 40px;
 }
+
 .bankList {
     visibility: hidden;
 }
+
 .card {
     margin: 15px;
+}
+.horizontal-panel {
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
