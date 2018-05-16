@@ -8,13 +8,23 @@
 }
 
 .bankList {
-    visibility: hidden;
+    display: none;
 }
 
 .card {
     margin: 15px;
 }
+
 .horizontal-panel {
     margin-left: 10px;
     margin-bottom: 10px;
+}
+
+.field {
+    display: block;
+}
+
+.grayField {
+    text-align: center;
+    color: grey;
 }
