@@ -11,80 +11,80 @@
     <script src="bankDirectory.js"></script>
 </head>
 <body onload="onShow()">
-<form id="form">
-    <div class="container-fluid">
-        <h2><span class="label label-default">Bank Directory</span></h2>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <input type="text" class="form-control" id="edBankName" placeholder="Bank Name" required="required"
-                       autocomplete="off"/>
+<div class="card directory">
+    <div class="card-header">
+        <div class="form-group row" style="margin-top: 20px">
+            <div class="col-sm-1">
+                <h2 class="grayField" id="counter"></h2>
+            </div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="edFilter" placeholder="" autocomplete="off" oninput="saveUtils.filter()"/>
+            </div>
+            <div class="col-sm-1">
+                <button type="submit" class="btn btn-primary float-right" onclick="showModalWindow()">Add</button>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="edBankBIK" placeholder="Bank BIK" pattern="[0-9]{9}"
-                       maxlength="9" required="required" title="9 digits"
-                       autocomplete="off"/>
-            </div>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="edCorrespondentAccount"
-                       placeholder="Correspondent Account" pattern="[0-9]{20}" maxlength="20" required="required"
-                       title="20 digits" autocomplete="off"/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <input type="text" class="form-control" id="edAddress" placeholder="Address" required="required"
-                       autocomplete="off"/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary float-right" onclick="saveUtils.saveBankInfo()">Add
-                </button>
-            </div>
-        </div>
-
     </div>
-    <div class="card">
-        <div class="card-header">
-            <div class="form-group row">
-                <div class="col-sm-1">
-                    <h2 class="grayField" id="counter"></h2>
-                </div>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="edFilter" placeholder="" autocomplete="off"/>
-                </div>
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-info" onclick="saveUtils.filter()">Filter</button>
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="container-fluid bankList" id="bankList">
-                <div class="row">
-                    <div class="card" style="width: 100%;" id="crdBank0">
-                        <h5 class="card-header card-title" id="crdBankName"></h5>
-                        <div class="card-body">
-                            <p class="card-text" id="crdBIK"></p>
-                            <p class="card-text" id="crdCorrAccount"></p>
-                            <p class="card-text" id="crdAddress"></p>
-                        </div>
-                        <div class="btn-group float-right horizontal-panel" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-secondary">Edit</button>
-                            <button type="button" class="btn btn-secondary" onclick="saveUtils.deleteBank(this)">Delete
-                            </button>
-                        </div>
+    <div class="card-body">
+        <div class="container-fluid bankList" id="bankList">
+            <div class="row">
+                <div class="card" style="width: 100%;" id="crdBank0">
+                    <h5 class="card-header card-title" id="crdBankName"></h5>
+                    <div class="card-body">
+                        <b>BIK:</b> <span class="card-text" id="crdBIK"></span>
+                        <b>CorrespondentAccount:</b> <span class="card-text" id="crdCorrAccount"></span>
+                        <br>
+                        <b>Address:</b> <span class="card-text" id="crdAddress"></span>
+                    </div>
+                    <div class="btn-group float-right horizontal-panel" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-secondary" onclick="saveUtils.editBank(this)">Edit</button>
+                        <button type="button" class="btn btn-secondary" onclick="saveUtils.deleteBank(this)">Delete</button>
                     </div>
                 </div>
             </div>
-            <div class="form-group row" id="noDataField">
-                <div class="col-sm-12 grayField">
-                    None to Display
-                </div>
+        </div>
+        <div class="form-group row" id="noDataField">
+            <div class="col-sm-12 grayField">
+                None to Display
             </div>
         </div>
     </div>
-</form>
+</div>
+<div class="modal" id="modalWindow">
+    <form id="form" class="modalBody">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="edBankName" placeholder="Bank Name" required="required"
+                           autocomplete="off"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="edBankBIK" placeholder="Bank BIK" pattern="[0-9]{9}"
+                           maxlength="9" required="required" title="9 digits"
+                           autocomplete="off"/>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="edCorrespondentAccount"
+                           placeholder="Correspondent Account" pattern="[0-9]{20}" maxlength="20" required="required"
+                           title="20 digits" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="edAddress" placeholder="Address" required="required"
+                           autocomplete="off"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-danger float-left" onclick="hideModalWindow()">Cancel</button>
+                    <button type="submit" class="btn btn-primary float-right" onclick="saveUtils.saveBankInfo()">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>
