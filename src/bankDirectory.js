@@ -10,14 +10,14 @@ var saveUtils = {
     },
     createCrd: function () {
         bankList = this.getBankList();
-        var length = bankList.length,
+        var LinkID = Number(localStorage.getItem("LinkID")) || 0,
             item = {
                 Name: this.nvl("edBankName"),
                 BIK: this.nvl("edBankBIK"),
                 CorrAccount: this.nvl("edCorrespondentAccount"),
                 Address: this.nvl("edAddress"),
-                LinkID: length,
-                id: "crdBank" + length
+                LinkID: LinkID,
+                id: "crdBank" + LinkID
             };
         if (this.editedItem) {
             for (var i = 0; i < bankList.length; i++) {
@@ -28,6 +28,8 @@ var saveUtils = {
         } else {
             bankList.push(item);
         }
+        this.editedItem = null;
+        localStorage.setItem("LinkID", JSON.stringify(++LinkID));
         localStorage.setItem("bankList", JSON.stringify(bankList));
     },
     saveBankInfo: function () {
@@ -41,14 +43,12 @@ var saveUtils = {
 
         var startFrom = topItemFlag ? bankList.length - 1 : 0;
         for (var i = startFrom; i < bankList.length; i++) {
+            var item = bankList[i];
             if (i !== 0) {
-                var lastElem = document.getElementById(bankList[i - 1].id);
                 var newCard = lastElem.cloneNode(true);
             } else {
-                var newCard = document.getElementById("bankList").querySelectorAll("div.card")[0];
+                var newCard = document.getElementById("bankList").querySelectorAll("div.card")[0] || document.getElementById("crdBank0");
             }
-            var item = bankList[i];
-
             newCard.id = item.id;
             newCard.querySelector("h5").innerText = item.Name;
             newCard.querySelectorAll("span.card-text").forEach(function (value) {
@@ -69,6 +69,7 @@ var saveUtils = {
             if (i !== 0) {
                 lastElem.parentNode.insertBefore(newCard, lastElem);
             }
+            lastElem = newCard;
         }
         saveUtils.changeListVisibility();
     },
@@ -152,11 +153,13 @@ var saveUtils = {
 
 function showModalWindow() {
     document.getElementById("modalWindow").style.display = "block";
+    document.body.style.overflow = 'hidden';
 }
 
 function hideModalWindow() {
     form.reset();
     document.getElementById("modalWindow").style.display = "none";
+    document.body.style.overflow = 'scroll';
 }
 
 var onShow = function () {
